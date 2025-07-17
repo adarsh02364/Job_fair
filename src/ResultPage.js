@@ -3,11 +3,11 @@ import Confetti from "react-confetti";
 import { questions } from "./QuizPage";
 
 const roles = [
-  "Internal Controller",
+  "Internal Control Expert",
   "Internal Auditor",
-  "Functional Data Specialist",
-  "Project Manager",
-  "Global Routine Specialist",
+  "Functional Data Expert",
+  "Project Managing Expert",
+  "Global Routine Expert",
 ];
 
 function calculateScores(responses) {

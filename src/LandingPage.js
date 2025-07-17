@@ -80,7 +80,7 @@ export default function LandingPage({ onStart }) {
 
           <input
             type="text"
-            placeholder="Emp ID (8-digit number only)"
+            placeholder="Emp ID"
             value={empId}
             onChange={handleEmpIdChange}
             className={`w-full p-2 rounded bg-gray-800 text-white ${
@@ -95,7 +95,7 @@ export default function LandingPage({ onStart }) {
 
           <input
             type="email"
-            placeholder="Email (optional: must end with @ab-inbev.com)"
+            placeholder="Email (Optional)"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={`w-full p-2 rounded bg-gray-800 text-white ${
