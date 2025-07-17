@@ -1,52 +1,121 @@
 import React, { useState } from "react";
 
-function LandingPage({ onStart }) {
+export default function LandingPage({ onStart }) {
+  const [name, setName] = useState("");
   const [empId, setEmpId] = useState("");
   const [email, setEmail] = useState("");
+  const [isEmpIdValid, setIsEmpIdValid] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [showNameError, setShowNameError] = useState(false);
 
-  const isEmpIdValid = /^\d{1,8}$/.test(empId);
-  const isEmailValid = /^[^\s@]+@ab-inbev\.com$/.test(email);
-  const isFormValid = isEmpIdValid && isEmailValid;
+  const validateInputs = () => {
+    const empIdPattern = /^[0-9]{8}$/;
+    const emailPattern = /^[^\s@]+@ab-inbev\.com$/i;
 
+    const validEmpId = empIdPattern.test(empId);
+    const validEmail = email === "" || emailPattern.test(email);
+    const validName = name.trim() !== "";
+
+    setIsEmpIdValid(validEmpId);
+    setIsEmailValid(validEmail);
+    setShowNameError(!validName);
+
+    return validName && validEmpId && validEmail;
+  };
+
+  const handleStart = () => {
+    if (validateInputs()) {
+      onStart({ name, empId, email });
+    }
+  };
+
+  const handleEmpIdChange = (e) => {
+    const input = e.target.value.replace(/\D/g, ""); // Remove all non-digit characters
+    if (input.length <= 8) {
+      setEmpId(input);
+    }
+  };
 
   return (
-    <div className="bg-black text-white rounded-2xl p-8 shadow-lg max-w-md w-full">
-      <h1 className="text-2xl font-bold text-amber text-center mb-6">Controls and Analytics Crew Matcher</h1>
-      <div className="space-y-4">
-        <input
-          className="w-full p-3 rounded-xl bg-gray-800 text-white"
-          placeholder="Emp ID"
-          value={empId}
-          maxLength={8}
-          onChange={(e) => setEmpId(e.target.value.replace(/\D/g, ""))}
-        />
-        {!isEmpIdValid && empId && (
-          <p className="text-red-500 text-sm">Emp ID must be 1 to 8 digits only</p>
-        )}
+    <div
+      className="fixed inset-0 flex flex-col items-center justify-center text-white"
+      style={{
+        backgroundImage: "url('/ABI-DigitalBackground-09.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
+    >
+      {/* Tint overlay */}
+      <div className="absolute inset-0 bg-black opacity-90 z-0" />
 
-        <input
-          className="w-full p-3 rounded-xl bg-gray-800 text-white"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {!isEmailValid && email && (
-  <p className="text-red-500 text-sm">Please use your @ab-inbev.com email</p>
-)}
+      {/* Logo */}
+      <img
+        src="/GHQI_Logo_Black Yellow copy.svg"
+        alt="Logo"
+        className="absolute top-10 w-32 h-auto z-10"
+      />
 
+      {/* Form container */}
+      <div className="relative z-10 bg-black bg-opacity-30 rounded-2xl p-8 shadow-lg max-w-md w-full text-center">
+        <h1 className="text-2xl font-bold text-amber-400 mb-2">
+          The Compliance Compass
+        </h1>
+        <p className="text-sm mb-6">
+          Because every superhero has a role — let’s find yours!
+        </p>
 
-        <button
-          className={`w-full bg-amber text-black font-bold py-3 rounded-xl ${
-            isFormValid ? "hover:opacity-90" : "opacity-50 cursor-not-allowed"
-          }`}
-          onClick={() => onStart({ empId, email })}
-          disabled={!isFormValid}
-        >
-          Start
-        </button>
+        <div className="space-y-4">
+          <input
+            type="text"
+            placeholder="Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-2 rounded bg-gray-800 text-white"
+          />
+          {showNameError && (
+            <p className="text-red-500 text-sm text-left">Name is required</p>
+          )}
+
+          <input
+            type="text"
+            placeholder="Emp ID (8-digit number only)"
+            value={empId}
+            onChange={handleEmpIdChange}
+            className={`w-full p-2 rounded bg-gray-800 text-white ${
+              !isEmpIdValid ? "border border-red-500" : ""
+            }`}
+          />
+          {!isEmpIdValid && (
+            <p className="text-red-500 text-sm text-left">
+              Emp ID must be exactly 8 digits (numbers only)
+            </p>
+          )}
+
+          <input
+            type="email"
+            placeholder="Email (optional: must end with @ab-inbev.com)"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={`w-full p-2 rounded bg-gray-800 text-white ${
+              !isEmailValid ? "border border-red-500" : ""
+            }`}
+          />
+          {!isEmailValid && (
+            <p className="text-red-500 text-sm text-left">
+              Email must be in the format yourname@ab-inbev.com
+            </p>
+          )}
+
+          <button
+            onClick={handleStart}
+            className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2 px-4 rounded transition duration-300"
+          >
+            Start
+          </button>
+        </div>
       </div>
     </div>
   );
 }
-
-export default LandingPage;

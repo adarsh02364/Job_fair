@@ -67,7 +67,7 @@ function ResultPage({ answers, userInfo, onBack }) {
         />
       )}
       <div className="bg-black text-white rounded-2xl p-8 shadow-lg max-w-md w-full text-center z-10">
-        <h2 className="text-2xl font-bold text-amber mb-4">Hi {userInfo.empId}!</h2>
+        <h2 className="text-2xl font-bold text-amber mb-4">Hi {userInfo.name}!</h2>
         <p className="text-lg mb-6">Based on your answers, your best match is:</p>
         <div className="bg-amber text-black font-bold p-6 rounded-2xl text-xl">
           {result}

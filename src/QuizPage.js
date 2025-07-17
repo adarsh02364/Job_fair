@@ -66,7 +66,10 @@ function QuizPage({ onSubmit, onBack }) {
 
   return (
     <div className="bg-black text-white rounded-2xl p-8 shadow-lg max-w-3xl w-full">
-      <h2 className="text-xl font-bold text-center text-amber mb-4">Quiz</h2>
+      <h1 className="text-4xl font-extrabold text-amber text-center mb-10 tracking-wide">
+  The Compliance Compass
+</h1>
+
       {questions.map((q, i) => (
         <div key={i} className="mb-6">
           <p className="mb-2 font-semibold">{i + 1}. {q.q}</p>
