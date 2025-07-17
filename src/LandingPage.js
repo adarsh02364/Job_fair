@@ -54,11 +54,11 @@ export default function LandingPage({ onStart }) {
       <img
         src="/GHQI_Logo_Black Yellow copy.svg"
         alt="Logo"
-        className="absolute top-10 w-32 h-auto z-10"
+        className="absolute top-10 w-48 h-auto z-10"
       />
 
       {/* Form container */}
-      <div className="relative z-10 bg-black bg-opacity-30 rounded-2xl p-8 shadow-lg max-w-md w-full text-center">
+      <div className="relative z-10 bg-black bg-opacity-10 rounded-2xl p-8 shadow-lg max-w-md w-full text-center">
         <h1 className="text-2xl font-bold text-amber-400 mb-2">
           The Compliance Compass
         </h1>
